@@ -12,6 +12,7 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
+/** @extends AbstractType<User> */
 final class RegisterType extends AbstractType
 {
     public function configureOptions(OptionsResolver $resolver): void
@@ -24,18 +25,22 @@ final class RegisterType extends AbstractType
         $builder
             ->add('username', TextType::class, [
                 'label' => 'Pseudo',
+                'error_bubbling' => true,
+                'empty_data' => '',
                 'attr' => [
                     'placeholder' => 'Pseudo',
                 ]
             ])
             ->add('email', EmailType::class, [
                 'label' => 'Email',
+                'empty_data' => '',
                 'attr' => [
                     'placeholder' => 'Email',
                 ]
             ])
             ->add('plainPassword', PasswordType::class, [
                 'label' => 'Mot de passe',
+                'empty_data' => '',
                 'attr' => [
                     'placeholder' => 'Mot de passe',
                 ]

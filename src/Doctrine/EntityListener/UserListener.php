@@ -17,7 +17,7 @@ final readonly class UserListener
     #[PrePersist]
     public function hashPassword(User $user): void
     {
-        if ($user->getPlainPassword() === null) {
+        if (null === $user->getPlainPassword()) {
             return;
         }
 

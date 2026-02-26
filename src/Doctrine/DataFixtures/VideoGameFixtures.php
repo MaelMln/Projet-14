@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types=1);
+
 namespace App\Doctrine\DataFixtures;
 
 use App\Model\Entity\Review;
@@ -8,13 +10,10 @@ use App\Model\Entity\User;
 use App\Model\Entity\VideoGame;
 use App\Rating\CalculateAverageRating;
 use App\Rating\CountRatingsPerValue;
-use DateInterval;
-use DateTimeImmutable;
 use Doctrine\Bundle\FixturesBundle\Fixture;
 use Doctrine\Common\DataFixtures\DependentFixtureInterface;
 use Doctrine\Persistence\ObjectManager;
 use Faker\Generator;
-use function array_fill_callback;
 
 final class VideoGameFixtures extends Fixture implements DependentFixtureInterface
 {
@@ -37,10 +36,10 @@ final class VideoGameFixtures extends Fixture implements DependentFixtureInterfa
         /** @var string $fakeText */
         $fakeText = $this->faker->paragraphs(5, true);
 
-        $videoGames = array_fill_callback(0, 50, fn (int $index): VideoGame => (new VideoGame)
+        $videoGames = \array_fill_callback(0, 50, fn (int $index): VideoGame => (new VideoGame())
             ->setTitle(sprintf('Jeu vidéo %d', $index))
             ->setDescription($fakeText)
-            ->setReleaseDate((new DateTimeImmutable())->sub(new DateInterval(sprintf('P%dD', $index))))
+            ->setReleaseDate((new \DateTimeImmutable())->sub(new \DateInterval(sprintf('P%dD', $index))))
             ->setTest($fakeText)
             ->setRating(($index % 5) + 1)
             ->setImageName(sprintf('video_game_%d.png', $index))
@@ -48,7 +47,7 @@ final class VideoGameFixtures extends Fixture implements DependentFixtureInterfa
         );
 
         array_walk($videoGames, static function (VideoGame $videoGame, int $index) use ($tags) {
-            for ($tagIndex = 0; $tagIndex < 5; $tagIndex++) {
+            for ($tagIndex = 0; $tagIndex < 5; ++$tagIndex) {
                 $videoGame->getTags()->add($tags[($index + $tagIndex) % count($tags)]);
             }
         });

@@ -38,5 +38,7 @@ jobs:
           php bin/console sass:build
       - name: Tests
         run: php bin/phpunit
-      - name: Analysis
+      - name: PHPStan
         run: php vendor/bin/phpstan
+      - name: PHP CS Fixer
+        run: php vendor/bin/php-cs-fixer fix --dry-run --diff

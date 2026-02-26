@@ -4,13 +4,14 @@ declare(strict_types=1);
 
 namespace App\Tests\Unit;
 
-use App\Model\Entity\Review;
 use App\Model\Entity\VideoGame;
 use App\Rating\RatingHandler;
-use Monolog\Test\TestCase;
+use PHPUnit\Framework\TestCase;
 
 final class AverageRatingCalculatorTest extends TestCase
 {
+    use VideoGameTestTrait;
+
     /**
      * @dataProvider provideVideoGame
      */
@@ -35,16 +36,5 @@ final class AverageRatingCalculatorTest extends TestCase
             self::createVideoGame(1, 2, 2, 3, 3, 3, 4, 4, 4, 4, 5, 5, 5, 5, 5),
             4,
         ];
-    }
-
-    private static function createVideoGame(int ...$ratings): VideoGame
-    {
-        $videoGame = new VideoGame();
-
-        foreach ($ratings as $rating) {
-            $videoGame->getReviews()->add((new Review())->setRating($rating));
-        }
-
-        return $videoGame;
     }
 }

@@ -24,7 +24,7 @@ final class SmokeTest extends FunctionalTestCase
         yield 'GET /jeu-video-0' => ['GET', '/jeu-video-0', 200];
         yield 'POST /jeu-video-0' => ['POST', '/jeu-video-0', 200];
         yield 'GET /auth/login' => ['GET', '/auth/login', 200];
-        yield 'POST /auth/login' => ['POST', '/auth/login', 302];
+        yield 'POST /auth/login' => ['POST', '/auth/login', 400];
         yield 'GET /auth/register' => ['GET', '/auth/register', 200];
         yield 'POST /auth/register' => ['POST', '/auth/register', 200];
     }
